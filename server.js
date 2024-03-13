@@ -1,9 +1,8 @@
-// server.js
-
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import courseRoutes from './routes/courseRoutes.js';
+import { getLoginPage, handleLogin, getAboutPage, getNodeCoursePage } from './controllers/courseController.js';
 
 const app = express();
 
@@ -11,20 +10,24 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-// Set EJS as the view engine
+// Set the views directory
+const viewsPath = path.join(__dirname, 'public');
+app.set('views', viewsPath);
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public'));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/courses', courseRoutes);
 
 // Route for the login page
-app.get('/login', courseController.getLoginPage);
-app.post('/login', courseController.handleLogin);
+app.get('/login', getLoginPage);
+app.post('/login', handleLogin);
 
 // Route for other pages
-app.get('/about', courseController.getAboutPage);
-app.get('/node-course', courseController.getNodeCoursePage);
+app.get('/about', getAboutPage);
+app.get('/node-course', getNodeCoursePage);
 
 // Route for the root URL
 app.get('/', (req, res) => {
