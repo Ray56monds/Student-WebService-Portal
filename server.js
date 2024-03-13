@@ -1,4 +1,4 @@
-// server.mjs
+// server.js
 
 import express from "express";
 import courseRoutes from './routes/courseRoutes.js';

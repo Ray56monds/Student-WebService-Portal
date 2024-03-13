@@ -1,7 +1,7 @@
 // courseRoutes.js
 
 import express from "express";
-import * as courseController from '../controllers/courseController'; //imports the controller functions
+import * as courseController from '../controllers/courseController.js'; //imports the controller functions
 
 const router = express.Router();
 
