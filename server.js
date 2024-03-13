@@ -5,32 +5,41 @@ import courseRoutes from './routes/courseRoutes.js';
 
 const app = express();
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/courses', courseRoutes);
 
-// Route handlers for HTML pages
-app.get('/', (req, res) => {
-    res.send('Welcome to the Student Web Service Portal!');
-});
-
+// Route for the login page
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    res.render('login');
 });
 
-app.get('/node-course', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'node-course.html'));
-});
-
-app.get('/course', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'course.html'));
+// Route for other pages
+app.get('/courses', (req, res) => {
+    res.render('courses');
 });
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
+    res.render('about');
+});
+
+app.get('/node-course', (req, res) => {
+    res.render('node-course');
+});
+
+// Route for the root URL
+app.get('/', (req, res) => {
+    res.send('Welcome to the Student Web Service Portal!');
 });
 
 // Start the server
