@@ -1,5 +1,4 @@
-// courseController.js
-
+// Import required modules
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -24,9 +23,10 @@ export const getNodeCoursePage = (req, res) => {
 
 // Function to handle login submission
 export const handleLogin = (req, res) => {
-    const { password } = req.body;
+    const { username, password } = req.body;
+    const hardcodedUsername = 'user123';
     const hardcodedPassword = 'Password1234';
-    if (password === hardcodedPassword) {
+    if (username === hardcodedUsername && password === hardcodedPassword) {
         // Redirect to the Node course page on successful login
         res.redirect('/node-course');
     } else {
