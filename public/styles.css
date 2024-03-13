@@ -76,28 +76,6 @@ textarea {
   }
 }
 
-/* Custom styles for specific pages */
-/* Courses page */
-.courses-container {
-  padding: 20px;
-  background-color: #f0f0f0;
-}
-
-.courses-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-.course-card {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
 /* About page */
 .about-container {
   padding: 20px;
