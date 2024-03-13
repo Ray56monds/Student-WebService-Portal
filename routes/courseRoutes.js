@@ -1,7 +1,8 @@
 // Import required modules
 import express from 'express';
 import * as courseController from '../controllers/courseController.js';
-import { dirname, fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { join } from 'path';
 
 // Create router
