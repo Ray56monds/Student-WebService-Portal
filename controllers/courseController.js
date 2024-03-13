@@ -1,4 +1,5 @@
-// Import required modules
+// courseController.js
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -6,22 +7,19 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
-// Set the views directory
-app.set('views', path.join(__dirname, 'public'));
-
 // Function to render the about page
 export const getAboutPage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'about.html'));
+    res.render('about');
 };
 
 // Function to render the login page
 export const getLoginPage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
+    res.render('login');
 };
 
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'node-course.html'));
+    res.render('node-course');
 };
 
 // Function to handle login submission
