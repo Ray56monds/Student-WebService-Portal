@@ -1,3 +1,4 @@
+// Import required modules
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
@@ -11,9 +12,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Set the views directory
-const viewsPath = path.join(__dirname, 'public');
-app.set('views', viewsPath);
-app.set('view engine', 'ejs');
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+app.set('views', path.join(__dirname, 'public'));
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
