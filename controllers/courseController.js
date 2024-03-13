@@ -23,10 +23,9 @@ export const getNodeCoursePage = (req, res) => {
 
 // Function to handle login submission
 export const handleLogin = (req, res) => {
-    const { username, password } = req.body;
-    const hardcodedUsername = 'user123';
+    const { password } = req.body;
     const hardcodedPassword = 'Password1234';
-    if (username === hardcodedUsername && password === hardcodedPassword) {
+    if (password === hardcodedPassword) {
         // Redirect to the Node course page on successful login
         res.redirect('/node-course');
     } else {
@@ -34,6 +33,7 @@ export const handleLogin = (req, res) => {
         res.redirect('/login?error=1');
     }
 };
+
 
 // Get all courses
 export const getAllCourses = (req, res) => {
