@@ -3,7 +3,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import courseRoutes from './routes/courseRoutes.js';
-import pageRoutes from './routes/pageRoutes.js';
 
 const app = express();
 
