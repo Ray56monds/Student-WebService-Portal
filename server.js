@@ -1,3 +1,5 @@
+// server.js
+
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
@@ -11,7 +13,6 @@ app.set('view engine', 'ejs');
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,5 +44,5 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
