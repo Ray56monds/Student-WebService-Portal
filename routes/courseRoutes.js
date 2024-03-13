@@ -12,11 +12,5 @@ router.get('/courses/:courseId', courseController.getCourseById);
 router.patch('/courses/:courseId', courseController.updateCourseById);
 router.delete('/courses/:courseId', courseController.deleteCourseById);
 
-// Define routes for rendering HTML pages
-router.get('/courses', pageController.getCoursesPage);
-router.get('/about', pageController.getAboutPage);
-router.get('/login', pageController.getLoginPage);
-router.get('/node-course', pageController.getNodeCoursePage);
-
 // Export router
 export default router;

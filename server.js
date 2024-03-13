@@ -12,7 +12,6 @@ app.use(express.json());
 
 // Routes
 app.use('/api/courses', courseRoutes); // API routes for courses
-app.use('/', pageRoutes); // Routes for rendering HTML pages
 
 // Start the server
 const PORT = 4000;
