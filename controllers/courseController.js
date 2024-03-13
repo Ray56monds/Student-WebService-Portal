@@ -1,10 +1,13 @@
 // Import required modules
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
+
+// Set the views directory
+app.set('views', path.join(__dirname, 'public'));
 
 // Function to render the about page
 export const getAboutPage = (req, res) => {
