@@ -6,11 +6,6 @@ import path from 'path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
-// Function to render the courses page
-export const getCoursesPage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'courses.html'));
-};
-
 // Function to render the about page
 export const getAboutPage = (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'about.html'));
