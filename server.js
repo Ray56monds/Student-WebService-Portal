@@ -1,7 +1,6 @@
-// server.js
-
 import express from 'express';
 import morgan from 'morgan';
+import path from 'path';
 import courseRoutes from './routes/courseRoutes.js';
 
 const app = express();
@@ -9,10 +8,12 @@ const app = express();
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/api/courses', courseRoutes); // API routes for courses
+app.use('/api/courses', courseRoutes);
 
+// Route for the root URL
 app.get('/', (req, res) => {
     res.send('Welcome to the Student Web Service Portal!');
 });
