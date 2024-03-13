@@ -1,9 +1,6 @@
 // Import required modules
 import express from 'express';
 import * as courseController from '../controllers/courseController.js';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { join } from 'path';
 
 // Create router
 const router = express.Router();
@@ -17,13 +14,3 @@ router.delete('/courses/:courseId', courseController.deleteCourseById);
 
 // Export router
 export default router;
-
-// Function to get current directory name
-const getCurrentDirname = () => {
-    const filename = fileURLToPath(import.meta.url);
-    return dirname(filename);
-}
-
-// Set the views directory
-const viewsPath = join(getCurrentDirname(), '..', 'public');
-app.set('views', viewsPath);
