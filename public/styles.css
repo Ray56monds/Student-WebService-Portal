@@ -1,6 +1,6 @@
 /* styles.css */
 
-/* Browser styles */
+/* Reset default browser styles */
 body,
 h1,
 p {
@@ -8,7 +8,7 @@ p {
   padding: 0;
 }
 
-/* Default font family */
+/* Set default font family */
 body {
   font-family: Arial, sans-serif;
 }
@@ -19,7 +19,7 @@ body {
   margin: 0 auto;
 }
 
-/* Padding and margin to elements */
+/* Add padding and margin to elements */
 h1,
 p {
   margin-bottom: 10px;
@@ -74,4 +74,46 @@ textarea {
   .container {
     width: 90%;
   }
+}
+
+/* Custom styles for specific pages */
+/* Courses page */
+.courses-container {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.courses-header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.course-card {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* About page */
+.about-container {
+  padding: 20px;
+}
+
+.about-header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.about-content {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
