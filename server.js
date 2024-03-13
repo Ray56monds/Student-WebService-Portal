@@ -13,6 +13,10 @@ app.use(express.json());
 // Routes
 app.use('/api/courses', courseRoutes); // API routes for courses
 
+app.get('/', (req, res) => {
+    res.send('Welcome to the Student Web Service Portal!');
+});
+
 // Start the server
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
