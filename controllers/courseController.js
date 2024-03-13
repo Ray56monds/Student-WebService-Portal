@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
 // Get all courses
-export const getAllcourses = (req, res) => {
+export const getAllCourses = (req, res) => {
     try {
         const coursesData = fs.readFileSync(coursesFilePath, 'utf-8');
         const courses = JSON.parse(coursesData);
@@ -92,6 +92,6 @@ export const deleteCourseById = (req, res) => {
             res.status(204).json({ message: 'Course deleted successfully' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting course' });
+        res.status (500).json({ message: 'Error deleting course' });
     }
 };
