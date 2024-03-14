@@ -25,9 +25,15 @@ app.use('/api/courses', courseRoutes);
 app.get('/login', getLoginPage);
 app.post('/login', handleLogin);
 
-// Route for other pages
-app.get('/about', getAboutPage);
+// Route for the Node Course page
 app.get('/node-course', getNodeCoursePage);
+
+// Route for the about page
+app.get('/about', getAboutPage);
+
+function getLoginPage(req, res) {
+    res.render('login');
+}
 
 // Route for the root URL
 app.get('/', (req, res) => {
