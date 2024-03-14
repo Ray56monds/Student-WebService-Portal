@@ -20,22 +20,20 @@ export const getLoginPage = (req, res) => {
 export const getNodeCoursePage = (req, res) => {
     res.render('node-course');
 };
+
+// Function to handle login submission
 export const handleLogin = (req, res) => {
-    const { password } = req.body;
+    const { username, password } = req.body;
+    const hardcodedUsername = 'user123';
     const hardcodedPassword = 'Password1234';
-    if (password === hardcodedPassword) {
+    if (username === hardcodedUsername && password === hardcodedPassword) {
         // Redirect to the Node course page on successful login
-        console.log("Login response","Login successful");
-        return res.redirect('/node-course');
+        res.redirect('/node-course');
     } else {
         // Redirect back to the login page with an error message
-        console.log("Login response","Login was not successful");
-        alert("Login was not successful");
-        return res.redirect('/login?error=1');
+        res.redirect('/login?error=1');
     }
 };
-
-
 
 // Get all courses
 export const getAllCourses = (req, res) => {
