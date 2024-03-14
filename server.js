@@ -20,7 +20,11 @@ app.use(express.static(publicPath));
 app.use('/api/courses', courseRoutes);
 
 // Route for the login page
-app.get('/login', getLoginPage);
+app.get('/login', (req, res) => {
+  res.sendFile(path.resolve(publicPath, 'login.html'));
+});
+
+// Route for handling login submission
 app.post('/login', handleLogin);
 
 // Route for the Node Course page
