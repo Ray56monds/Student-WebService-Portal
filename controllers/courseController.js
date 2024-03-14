@@ -29,7 +29,7 @@ export const handleLogin = (req, res) => {
         // Redirect to the Node course page on successful login
         console.log('password :', hardcodedPassword );
         return;
-        return res.redirect('/node-course');
+        //return res.redirect('/node-course');
     }
 };
 

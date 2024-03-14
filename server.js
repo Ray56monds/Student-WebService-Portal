@@ -31,10 +31,6 @@ app.get('/node-course', getNodeCoursePage);
 // Route for the about page
 app.get('/about', getAboutPage);
 
-function getLoginPage(req, res) {
-    res.render('login');
-}
-
 // Route for the root URL
 app.get('/', (req, res) => {
     res.send('Welcome to the Student Web Service Portal!');
