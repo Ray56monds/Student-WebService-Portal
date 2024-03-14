@@ -27,9 +27,10 @@ export const handleLogin = (req, res) => {
     const hardcodedPassword = 'Password1234';
     if (password === hardcodedPassword) {
         // Redirect to the Node course page on successful login
-        console.log('password :', hardcodedPassword );
-        return;
-        //return res.redirect('/node-course');
+        return res.redirect('/node-course');
+    } else {
+        // Redirect back to the login page with an error message
+        return res.redirect('/login?error=1');
     }
 };
 
