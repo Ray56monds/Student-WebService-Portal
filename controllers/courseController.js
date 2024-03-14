@@ -29,11 +29,7 @@ export const handleLogin = (req, res) => {
         // Redirect to the Node course page on successful login
         return res.redirect('/node-course');
     }
-    // If password is incorrect, redirect back to login page with error parameter
-    return res.redirect('/login?error=1');
 };
-
-
 
 // Get all courses
 export const getAllCourses = (req, res) => {
