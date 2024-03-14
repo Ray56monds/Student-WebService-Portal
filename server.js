@@ -39,6 +39,12 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Student Web Service Portal!');
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
+
 // Start the server
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
