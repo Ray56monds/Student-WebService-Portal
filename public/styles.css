@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Reset default browser styles */
 body,
 h1,
@@ -74,24 +72,4 @@ textarea {
   .container {
     width: 90%;
   }
-}
-
-/* About page */
-.about-container {
-  padding: 20px;
-}
-
-.about-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-.about-content {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 20px;
 }

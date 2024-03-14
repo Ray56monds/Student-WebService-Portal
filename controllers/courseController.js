@@ -6,19 +6,14 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
-// Function to render the about page
-export const getAboutPage = (req, res) => {
-    res.render('about');
-};
-
 // Function to render the login page
 export const getLoginPage = (req, res) => {
-    res.render('login');
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 };
 
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
-    res.render('node-course');
+    res.sendFile(path.join(__dirname, 'public', 'node-course.html'));
 };
 
 // Function to handle login submission
