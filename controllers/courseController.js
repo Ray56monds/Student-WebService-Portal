@@ -20,8 +20,6 @@ export const getLoginPage = (req, res) => {
 export const getNodeCoursePage = (req, res) => {
     res.render('node-course');
 };
-
-// Function to handle login submission
 export const handleLogin = (req, res) => {
     const { password } = req.body;
     const hardcodedPassword = 'Password1234';
@@ -33,6 +31,8 @@ export const handleLogin = (req, res) => {
         return res.redirect('/login?error=1');
     }
 };
+
+
 
 // Get all courses
 export const getAllCourses = (req, res) => {
