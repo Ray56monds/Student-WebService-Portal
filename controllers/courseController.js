@@ -8,20 +8,19 @@ const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
 // Function to render the login page
 export const getLoginPage = (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
 };
 
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'node-course'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'node-course.html'));
 };
 
 // Function to handle login submission
 export const handleLogin = (req, res) => {
     const { username, password } = req.body;
-    const hardcodedUsername = 'user123';
     const hardcodedPassword = 'Password1234';
-    if (username === hardcodedUsername && password === hardcodedPassword) {
+    if (password === hardcodedPassword) {
         // Redirect to the Node course page on successful login
         res.redirect('/node-course');
     } else {
