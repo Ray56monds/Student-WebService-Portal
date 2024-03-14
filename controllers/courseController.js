@@ -8,12 +8,12 @@ const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
 // Function to render the login page
 export const getLoginPage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
+    res.sendFile(path.join(__dirname, '..', 'Public', 'login.html'));
 };
 
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'node-course.html'));
+    res.sendFile(path.join(__dirname, '..', 'Public', 'node-course.html'));
 };
 
 // Function to handle login submission

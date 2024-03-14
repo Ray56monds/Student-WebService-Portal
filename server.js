@@ -4,6 +4,7 @@ import path from 'path';
 import { getLoginPage, getNodeCoursePage, handleLogin } from './controllers/courseController.js';
 import courseRoutes from './routes/courseRoutes.js';
 
+// Directory to path
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Serve static files from the public directory
-const publicPath = path.join(__dirname, 'public');
+const publicPath = path.join(__dirname, 'Public');
 app.use(express.static(publicPath));
 
 // Routes
