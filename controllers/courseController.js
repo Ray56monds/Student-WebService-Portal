@@ -8,26 +8,44 @@ const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
 // Function to render the login page
 export const getLoginPage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'Public', 'login.html'));
+    try {
+        res.sendFile(path.join(__dirname, '..', 'Public', 'login.html'));
+    } catch (error) {
+        console.error('Error rendering login page:', error);
+        res.status(500).send('Internal Server Error');
+    }
 };
 
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'Public', 'node-course.html'));
+    try {
+        res.sendFile(path.join(__dirname, '..', 'Public', 'node-course.html'));
+    } catch (error) {
+        console.error('Error rendering node-course page:', error);
+        res.status(500).send('Internal Server Error');
+    }
 };
 
 // Function to handle login submission
 export const handleLogin = (req, res) => {
     const { username, password } = req.body;
     const hardcodedPassword = 'Password1234';
-    if (password === hardcodedPassword) {
-        // Redirect to the Node course page on successful login
-        res.redirect('/node-course');
-    } else {
-        // Redirect back to the login page with an error message
-        res.redirect('/login?error=1');
+    try {
+        if (password === hardcodedPassword) {
+            // Redirect to the Node course page on successful login
+            res.redirect('/node-course');
+        } else {
+            // Redirect back to the login page with an error message
+            res.redirect('/login?error=1');
+        }
+    } catch (error) {
+        console.error('Error handling login:', error);
+        res.status(500).send('Internal Server Error');
     }
 };
+
+// Other CRUD operations for courses...
+
 
 // Get all courses
 export const getAllCourses = (req, res) => {
