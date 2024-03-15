@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Serve static files from the Public directory
-const publicPath = path.join(__dirname, 'Public');
+const publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
 
 // Routes

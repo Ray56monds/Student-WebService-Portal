@@ -9,7 +9,7 @@ const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 // Function to render the login page
 export const getLoginPage = (req, res) => {
     try {
-        res.sendFile(path.join(__dirname, '..', 'Public', 'login.html'));
+        res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
     } catch (error) {
         console.error('Error rendering login page:', error);
         res.status(500).send('Internal Server Error');
@@ -19,7 +19,7 @@ export const getLoginPage = (req, res) => {
 // Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
     try {
-        res.sendFile(path.join(__dirname, '..', 'Public', 'node-course.html'));
+        res.sendFile(path.join(__dirname, '..', 'public', 'node-course.html'));
     } catch (error) {
         console.error('Error rendering node-course page:', error);
         res.status(500).send('Internal Server Error');
