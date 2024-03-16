@@ -1,12 +1,9 @@
-// Import required modules
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const coursesFilePath = path.join(__dirname, '..', 'courses.json');
 
-// Function to render the login page
 export const getLoginPage = (req, res) => {
     try {
         res.sendFile(path.join(__dirname, '..', 'public', 'login.html'));
@@ -16,7 +13,6 @@ export const getLoginPage = (req, res) => {
     }
 };
 
-// Function to render the node-course page
 export const getNodeCoursePage = (req, res) => {
     try {
         res.sendFile(path.join(__dirname, '..', 'public', 'node-course.html'));
@@ -26,16 +22,13 @@ export const getNodeCoursePage = (req, res) => {
     }
 };
 
-// Function to handle login submission
 export const handleLogin = (req, res) => {
-    const { username, password } = req.body;
+    const { password } = req.body;
     const hardcodedPassword = 'Password1234';
     try {
         if (password === hardcodedPassword) {
-            // Redirect to the Node course page on successful login
             res.redirect('/node-course');
         } else {
-            // Redirect back to the login page with an error message
             res.redirect('/login?error=1');
         }
     } catch (error) {
@@ -44,10 +37,6 @@ export const handleLogin = (req, res) => {
     }
 };
 
-// Other CRUD operations for courses...
-
-
-// Get all courses
 export const getAllCourses = (req, res) => {
     try {
         const coursesData = fs.readFileSync(coursesFilePath, 'utf-8');
@@ -58,7 +47,6 @@ export const getAllCourses = (req, res) => {
     }
 };
 
-// Get a course by ID
 export const getCourseById = (req, res) => {
     const courseId = req.params.courseId;
     try {
@@ -69,23 +57,23 @@ export const getCourseById = (req, res) => {
             res.status(404).json({ message: 'Course not found' });
         } else {
             res.status(200).json(course);
-        }   
+        }
     } catch (error) {
-        res.status(500).json({ message: 'Error getting course' }); 
+        res.status(500).json({ message: 'Error getting course' });
     }
 };
 
-// Create a new course
 export const createCourse = (req, res) => {
     try {
         const { title, description, instructor, price, rating } = req.body;
         const newCourse = {
-            _id: `course_id${Math.floor(Math.random() * 1000)}`, //this generates a unique ID
+            _id: `course_id${Math.floor(Math.random() * 1000)}`,
             title,
             description,
             instructor,
             price,
-            createdAt: new Date().toISOString(), //this will generate the current date and time
+            rating,
+            createdAt: new Date().toISOString(),
         };
         const coursesData = JSON.parse(fs.readFileSync(coursesFilePath, 'utf-8'));
         coursesData.push(newCourse);
@@ -96,10 +84,9 @@ export const createCourse = (req, res) => {
     }
 };
 
-// Update a course by ID
 export const updateCourseById = (req, res) => {
     const courseId = req.params.courseId;
-    const { title, description, instructor, price } = req.body;
+    const { title, description, instructor, price, rating } = req.body;
     try {
         let coursesData = JSON.parse(fs.readFileSync(coursesFilePath, 'utf-8'));
         const courseIndex = coursesData.findIndex((course) => course._id === courseId);
@@ -112,6 +99,7 @@ export const updateCourseById = (req, res) => {
                 description: description || coursesData[courseIndex].description,
                 instructor: instructor || coursesData[courseIndex].instructor,
                 price: price || coursesData[courseIndex].price,
+                rating: rating || coursesData[courseIndex].rating,
             };
             fs.writeFileSync(coursesFilePath, JSON.stringify(coursesData, null, 2));
             res.status(200).json(coursesData[courseIndex]);
@@ -121,7 +109,6 @@ export const updateCourseById = (req, res) => {
     }
 };
 
-// Delete a course by ID
 export const deleteCourseById = (req, res) => {
     const courseId = req.params.courseId;
     try {
@@ -134,6 +121,6 @@ export const deleteCourseById = (req, res) => {
             res.status(204).json({ message: 'Course deleted successfully' });
         }
     } catch (error) {
-        res.status (500).json({ message: 'Error deleting course' });
+        res.status(500).json({ message: 'Error deleting course' });
     }
 };
