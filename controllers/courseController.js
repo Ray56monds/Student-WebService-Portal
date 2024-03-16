@@ -1,8 +1,14 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-const coursesFilePath = path.join(__dirname, '..', 'courses.json');
+// const __dirname = path.dirname(new URL(import.meta.url).pathname);
+// const coursesFilePath = path.join(__dirname, '../models/courses.json');
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const coursesFilePath = path.join(__dirname, "../models/courses.json");
 
 export const getLoginPage = (req, res) => {
     try {
@@ -43,6 +49,7 @@ export const getAllCourses = (req, res) => {
         const courses = JSON.parse(coursesData);
         res.status(200).json(courses);
     } catch (error) {
+        console.error('Error getting courses:', error);
         res.status(500).json({ message: 'Error getting courses' });
     }
 };

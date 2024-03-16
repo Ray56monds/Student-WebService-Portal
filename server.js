@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
+import router from './routes/courseRoutes.js';
 
 const app = express();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -24,10 +25,17 @@ app.get('/node-course', (req, res) => {
     res.sendfile(filePath);
 });
 
-// Route for the root URL
+//Route for the root URL
 app.get('/', (req, res) => {
     res.send('Welcome to the Student Web Service Portal!');
 });
+
+// Route to the courses
+// app.get('/api/courses', (req, res) => {
+//     res.send('Welcome to the Student Web Service Portal!');
+// })
+
+app.use('/api/courses', router);
 
 // Start the server
 const PORT = process.env.PORT || 4000;
