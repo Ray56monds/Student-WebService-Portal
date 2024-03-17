@@ -45,7 +45,7 @@
 <body>
     <div class="container">
         <h1>Login</h1>
-        <form id="loginForm" action="/login" method="post" onsubmit="return validateForm()">
+        <form action="/login" method="post">
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
@@ -54,17 +54,5 @@
         </form>
         <p>If you don't have an account yet, you can <a href="/node-course">sign up for our Node.js course</a>.</p>
     </div>
-
-    <script>
-        function validateForm() {
-            var password = document.getElementById("password").value;
-            if (password === "Password1234") {
-                alert("Please enter your password.");
-                return false;
-            }
-            // Add more validation logic if needed
-            return true;
-        }
-    </script>
 </body>
 </html>
