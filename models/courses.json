@@ -28,10 +28,29 @@
   },
   {
     "_id": "course_id360",
+    "title": "MVC Architecture and RestFul Apis",
+    "description": "Learn the basics of MVC Architecture",
+    "instructor": "Jackson Lubuulwa",
+    "price": 650,
+    "rating": 3.5,
     "createdAt": "2024-03-17T06:37:43.597Z"
   },
   {
     "_id": "course_id104",
+    "title": "React.js Basics",
+    "description": "Build a simple React.js app",
+    "instructor": "Aaron Joel Ssaazi",
+    "price": 800,
+    "rating": 5,
     "createdAt": "2024-03-17T06:38:56.193Z"
+  },
+  {
+    "_id": "course_id445",
+    "title": "Node.js Basics",
+    "description": "Learn the basics of Node.js",
+    "instructor": "Cedrick Nageri",
+    "price": 950,
+    "rating": 4.5,
+    "createdAt": "2024-03-17T07:29:02.429Z"
   }
 ]
