@@ -1,6 +1,6 @@
 [
   {
-    "_id": "course_id_1",
+    "_id": "course_id",
     "title": "Node.js Basics",
     "description": "Learn the basics of Node.js",
     "instructor": "Jeremy Mujuni",
@@ -9,7 +9,7 @@
     "createdAt": "2024-02-25T00:00:00.000Z"
   },
   {
-    "_id": "course_id_2",
+    "_id": "course_id",
     "title": "React.js Basics",
     "description": "Build a simple React.js app",
     "instructor": "Julian Birungi",
@@ -18,7 +18,7 @@
     "createdAt": "2024-03-25T00:00:00.000Z"
   },
   {
-    "_id": "course_id_3",
+    "_id": "course_id",
     "title": "MVC Architecture and RestFul Apis",
     "description": "Learn the basics of MVC Architecture",
     "instructor": "Samuel Othieno",
@@ -27,12 +27,16 @@
     "createdAt": "2024-04-25T00:00:00.000Z"
   },
   {
-    "_id": "course_id284",
+    "_id": "course_id",
     "title": "MVC Architecture and RestFul Apis",
     "description": "Learn the basics of MVC Architecture",
     "instructor": "Samuel Othieno",
     "price": 250,
     "rating": 3.5,
     "createdAt": "2024-03-16T13:43:25.715Z"
+  },
+  {
+    "_id": "course_id",
+    "createdAt": "2024-03-16T14:30:06.884Z"
   }
 ]
