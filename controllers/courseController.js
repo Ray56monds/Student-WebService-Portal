@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Get all courses
 export const getAllCourses = async (req, res) => {
     try {
         const courses = await prisma.course.findMany();
@@ -12,11 +13,12 @@ export const getAllCourses = async (req, res) => {
     }
 };
 
+// Get course by ID
 export const getCourseById = async (req, res) => {
     const courseId = req.params.courseId;
     try {
         const course = await prisma.course.findUnique({
-            where: { id: courseId }
+            where: { id: parseInt(courseId) }
         });
         if (!course) {
             res.status(404).json({ message: 'Course not found' });
@@ -29,17 +31,17 @@ export const getCourseById = async (req, res) => {
     }
 };
 
+// Create a new course
 export const createCourse = async (req, res) => {
     try {
-        const { title, description, instructor, price, rating, createdAt } = req.body;
+        const { title, description, instructor, price, rating } = req.body;
         const newCourse = await prisma.course.create({
             data: {
                 title,
                 description,
                 instructor,
                 price,
-                rating,
-                createdAt: new Date(createdAt)
+                rating
             }
         });
         res.status(201).json(newCourse);
@@ -49,19 +51,19 @@ export const createCourse = async (req, res) => {
     }
 };
 
+// Update course by ID
 export const updateCourseById = async (req, res) => {
     const courseId = req.params.courseId;
-    const { title, description, instructor, price, rating, createdAt } = req.body;
+    const { title, description, instructor, price, rating } = req.body;
     try {
         const updatedCourse = await prisma.course.update({
-            where: { id: courseId },
+            where: { id: parseInt(courseId) },
             data: {
                 title,
                 description,
                 instructor,
                 price,
-                rating,
-                createdAt: new Date(createdAt)
+                rating
             }
         });
         res.status(200).json(updatedCourse);
@@ -71,11 +73,12 @@ export const updateCourseById = async (req, res) => {
     }
 };
 
+// Delete course by ID
 export const deleteCourseById = async (req, res) => {
     const courseId = req.params.courseId;
     try {
         await prisma.course.delete({
-            where: { id: courseId }
+            where: { id: parseInt(courseId) }
         });
         res.status(204).json({ message: 'Course deleted successfully' });
     } catch (error) {
