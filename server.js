@@ -13,7 +13,6 @@ const prisma = new PrismaClient();
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded());
 
 // Define a route handler for the root URL
 app.get('/', (req, res) => {
