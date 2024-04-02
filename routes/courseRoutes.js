@@ -1,13 +1,13 @@
 import express from 'express';
 import * as courseController from '../controllers/courseController.js';
 
-const router = express.Router();
+const courseRouter = express.Router();
 
 // Define routes for CRUD operations on courses
-router.get('/', courseController.getAllCourses);
-router.get('/:courseId', courseController.getCourseById);
-router.post('/', courseController.createCourse);
-router.patch('/:courseId', courseController.updateCourseById);
-router.delete('/:courseId', courseController.deleteCourseById);
+courseRouter.get('/', courseController.getAllCourses);
+courseRouter.get('/:courseId', courseController.getCourseById);
+courseRouter.post('/', courseController.createCourse);
+courseRouter.patch('/:courseId', courseController.updateCourseById);
+courseRouter.delete('/:courseId', courseController.deleteCourseById);
 
-export default router;
+export default courseRouter;

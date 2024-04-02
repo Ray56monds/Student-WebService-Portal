@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -9,8 +9,8 @@ export default class UserController {
       const users = await prisma.user.findMany();
       res.status(200).json(users);
     } catch (error) {
-      console.error('Error getting users:', error);
-      res.status(500).json({ message: 'Error getting users' });
+      console.error("Error getting users:", error);
+      res.status(500).json({ message: "Error getting users" });
     }
   }
 
@@ -22,22 +22,34 @@ export default class UserController {
         where: { id: userId },
       });
       if (!user) {
-        res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: "User not found" });
       } else {
         res.status(200).json(user);
       }
     } catch (error) {
-      console.error('Error getting user:', error);
-      res.status(500).json({ message: 'Error getting user' });
+      console.error("Error getting user:", error);
+      res.status(500).json({ message: "Error getting user" });
     }
   }
 
   // Create a new user
-  static async createUser(req, res) {
+static async createUser(req, res) {
     try {
-      const { name, email, age } = req.body;
+      // Destructure properties from the request body
+      const { id, name, email, age } = req.body;
+  
+      // Parse the id into an integer
+      const userId = parseInt(id);
+  
+      // Log the received request body
+      console.log('Received request body:', req.body);
+  
+      // Log the extracted values
+      console.log('Extracted Values:', { userId, name, email, age });
+  
       const newUser = await prisma.user.create({
         data: {
+          id: userId,
           name,
           email,
           age,
@@ -45,10 +57,11 @@ export default class UserController {
       });
       res.status(201).json(newUser);
     } catch (error) {
-      console.error('Error creating user:', error);
-      res.status(500).json({ message: 'Error creating user' });
+      console.error("Error creating user:", error);
+      res.status(500).json({ message: "Error creating user" });
     }
   }
+  
 
   // Update user by ID
   static async updateUserById(req, res) {
@@ -65,8 +78,8 @@ export default class UserController {
       });
       res.status(200).json(updatedUser);
     } catch (error) {
-      console.error('Error updating user:', error);
-      res.status(500).json({ message: 'Error updating user' });
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Error updating user" });
     }
   }
 
@@ -77,10 +90,10 @@ export default class UserController {
       await prisma.user.delete({
         where: { id: userId },
       });
-      res.status(204).json({ message: 'User deleted successfully' });
+      res.status(204).json({ message: "User deleted successfully" });
     } catch (error) {
-      console.error('Error deleting user:', error);
-      res.status(500).json({ message: 'Error deleting user' });
+      console.error("Error deleting user:", error);
+      res.status(500).json({ message: "Error deleting user" });
     }
   }
 }

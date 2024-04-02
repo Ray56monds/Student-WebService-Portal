@@ -26,44 +26,6 @@ app.use('/api/courses', courseRouter);
 // Mount user routes
 app.use('/api/users', userRouter);
 
-// Create a new course
-app.post('/api/courses', async (req, res) => {
-    const { title, description, instructor, price, rating } = req.body;
-    try {
-        const newCourse = await prisma.course.create({
-            data: {
-                title: title,
-                description: description,
-                instructor: instructor,
-                price: price,
-                rating: rating
-            }
-        });
-        res.status(201).json(newCourse);
-    } catch (error) {
-        console.error('Error creating course:', error);
-        res.status(500).json({ message: 'Error creating course' });
-    }
-});
-
-// Create a new user
-app.post('/api/users', async (req, res) => {
-    const { name, email, age } = req.body;
-    try {
-        const newUser = await prisma.user.create({
-            data: {
-                name: name,
-                email: email,
-                age: age
-            }
-        });
-        res.status(201).json(newUser);
-    } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).json({ message: 'Error creating user' });
-    }
-});
-
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
