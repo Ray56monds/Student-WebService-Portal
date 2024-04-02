@@ -1,4 +1,4 @@
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -6,7 +6,7 @@ export default class UserController {
   // Get all users
   static async getAllUsers(req, res) {
     try {
-      const users: User[] = await prisma.user.findMany();
+      const users = await prisma.user.findMany();
       res.status(200).json(users);
     } catch (error) {
       console.error('Error getting users:', error);
@@ -18,7 +18,7 @@ export default class UserController {
   static async getUserById(req, res) {
     const userId = parseInt(req.params.userId);
     try {
-      const user: User | null = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { id: userId },
       });
       if (!user) {
@@ -36,7 +36,7 @@ export default class UserController {
   static async createUser(req, res) {
     try {
       const { name, email, age } = req.body;
-      const newUser: User = await prisma.user.create({
+      const newUser = await prisma.user.create({
         data: {
           name,
           email,
@@ -55,7 +55,7 @@ export default class UserController {
     const userId = parseInt(req.params.userId);
     const { name, email, age } = req.body;
     try {
-      const updatedUser: User = await prisma.user.update({
+      const updatedUser = await prisma.user.update({
         where: { id: userId },
         data: {
           name,
