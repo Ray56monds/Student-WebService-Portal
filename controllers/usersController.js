@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default class UserController {
+class UserController {
   // Get all users
-  static async getAllUsers(req, res) {
+  async getAllUsers(req, res) {
     try {
       const users = await prisma.user.findMany();
       res.status(200).json(users);
@@ -15,7 +15,7 @@ export default class UserController {
   }
 
   // Get user by ID
-  static async getUserById(req, res) {
+  async getUserById(req, res) {
     const userId = parseInt(req.params.userId);
     try {
       const user = await prisma.user.findUnique({
@@ -32,39 +32,38 @@ export default class UserController {
     }
   }
 
-  // Create a new user
-static async createUser(req, res) {
-    try {
-      // Destructure properties from the request body
-      const { id, name, email, age } = req.body;
-  
-      // Parse the id into an integer
-      const userId = parseInt(id);
-  
-      // Log the received request body
-      console.log('Received request body:', req.body);
-  
-      // Log the extracted values
-      console.log('Extracted Values:', { userId, name, email, age });
-  
-      const newUser = await prisma.user.create({
-        data: {
-          id: userId,
-          name,
-          email,
-          age,
-        },
-      });
-      res.status(201).json(newUser);
-    } catch (error) {
-      console.error("Error creating user:", error);
-      res.status(500).json({ message: "Error creating user" });
-    }
+// Create a new user
+async createUser(req, res) {
+  try {
+    // Extract the user data from the request body array
+    const userData = req.body[0]; // Assuming the user data is the first element of the array
+
+    // Destructure properties from the user data object
+    const { name, email, age } = userData;
+
+    // Log the received request body
+    console.log('Received request body:', userData);
+
+    // Log the extracted values
+    console.log('Extracted Values:', { name, email, age });
+
+    const newUser = await prisma.user.create({
+      data: {
+        name,
+        email,
+        age,
+      },
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ message: "Error creating user" });
   }
-  
+}
+
 
   // Update user by ID
-  static async updateUserById(req, res) {
+  async updateUserById(req, res) {
     const userId = parseInt(req.params.userId);
     const { name, email, age } = req.body;
     try {
@@ -73,7 +72,7 @@ static async createUser(req, res) {
         data: {
           name,
           email,
-          age,
+          age: parseInt(age),
         },
       });
       res.status(200).json(updatedUser);
@@ -84,7 +83,7 @@ static async createUser(req, res) {
   }
 
   // Delete user by ID
-  static async deleteUserById(req, res) {
+  async deleteUserById(req, res) {
     const userId = parseInt(req.params.userId);
     try {
       await prisma.user.delete({
@@ -97,3 +96,5 @@ static async createUser(req, res) {
     }
   }
 }
+
+export default new UserController();
