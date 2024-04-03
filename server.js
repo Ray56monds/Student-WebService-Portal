@@ -57,7 +57,7 @@ app.use('/api/users', userRouter);
 
 // Define a route handler for the root URL
 app.get('/', (req, res) => {
-    res.send('Welcome to the Student Web Portal API');
+    res.send('Welcome to the Student Web Portal');
 });
 
 const PORT = process.env.PORT || 4000;
