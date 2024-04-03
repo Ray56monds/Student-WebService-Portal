@@ -18,22 +18,24 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
-// Endpoint to generate JWT token
-app.post('/get-token', (req, res) => {
-    const { email } = req.body;
-    const token = jwt.sign({ email }, process.env.JWT_SECRET); // Use environment variable for JWT secret
-    res.status(200).json({ token });
+app.get('/get-token', (req,res)=>{
+    // Generate JWT token with 15-minute expiration
+    const token = jwt.sign({email:req.body.email}, 'secretkey', { expiresIn: '15m' });
+    res.status(200).json({token});
 });
 
-// Set CORS headers for all routes
-app.use((req, res, next) => {
+/**
+ * @swagger https://swagger.io/docs/specification/2-0/api-definition/#tags-object
+ */
+app.set('tag', 'Courses'); 
+
+app.use('/api/v1', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
     }
-    next();
 });
 
 // Define a route handler for the root URL

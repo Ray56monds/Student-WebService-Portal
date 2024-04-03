@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+        
         .container {
             background-color: #fff;
             max-width: 600px;
@@ -19,22 +20,26 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        
         h1 {
             color: #007bff; /* Heading color */
             margin-bottom: 20px;
         }
-        p {
-            margin-bottom: 10px;
-        }
-        a {
+        
+        .link {
             display: block;
             margin-top: 20px;
             text-decoration: none;
             color: #007bff; /* Link color */
             transition: color 0.3s ease; /* Smooth transition for link color */
         }
-        a:hover {
+        
+        .link:hover {
             color: #0056b3; /* Hover color for links */
+        }
+        
+        .details {
+            display: none;
         }
     </style>
 </head>
@@ -44,8 +49,24 @@
         <p>Welcome to the Node.js course! This course covers the fundamentals of Node.js programming.</p>
         <p>Duration: 4 weeks</p>
         <p>Level: Beginner</p>
-        <a href="https://www.youtube.com/watch?v=Tw5LupcpKS4" target="_blank" rel="noopener">Watch Introduction Video</a>
-        <a href="/login">Login</a>
+        <a href="https://www.youtube.com/watch?v=Tw5LupcpKS4" target="_blank" rel="noopener" class="link">Watch Introduction Video</a>
+        <a href="/login" class="link">Login</a>
+        <a href="#" class="link" onclick="toggleDetails()">Show Course Details</a>
+        <div id="courseDetails" class="details">
+            <p><strong>Title:</strong> Introduction to Node.js</p>
+            <p><strong>Description:</strong> Learn the basics of Node.js and build your first applications.</p>
+            <p><strong>Instructor:</strong> John Doe</p>
+            <p><strong>Price:</strong> $49.99</p>
+            <p><strong>Rating:</strong> 4.5</p>
+            <p><strong>Created At:</strong> March 28, 2024</p>
+        </div>
     </div>
+
+    <script>
+        function toggleDetails() {
+            var details = document.getElementById("courseDetails");
+            details.style.display = details.style.display === "none" ? "block" : "none";
+        }
+    </script>
 </body>
 </html>
