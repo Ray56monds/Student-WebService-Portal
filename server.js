@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import courseRouter from './routes/courseRoutes.js';
 import userRouter from './routes/userRoutes.js'; // Import user routes
 import { PrismaClient } from '@prisma/client';
+import cors from 'cors';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
@@ -14,6 +16,25 @@ const prisma = new PrismaClient();
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
+
+// Endpoint to generate JWT token
+app.post('/get-token', (req, res) => {
+    const { email } = req.body;
+    const token = jwt.sign({ email }, process.env.JWT_SECRET); // Use environment variable for JWT secret
+    res.status(200).json({ token });
+});
+
+// Set CORS headers for all routes
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+});
 
 // Define a route handler for the root URL
 app.get('/', (req, res) => {
