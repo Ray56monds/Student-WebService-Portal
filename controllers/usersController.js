@@ -61,7 +61,6 @@ async createUser(req, res) {
   }
 }
 
-
   // Update user by ID
   async updateUserById(req, res) {
     const userId = parseInt(req.params.userId);

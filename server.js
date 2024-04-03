@@ -19,17 +19,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
+// Generate JWT token with 15-minute expiration
 app.get('/get-token', (req, res) => {
-    // Generate JWT token with 15-minute expiration
     const token = jwt.sign({ email: req.body.email }, 'secretkey', { expiresIn: '15m' });
     res.status(200).json({ token });
 });
 
-/**
- * @swagger https://swagger.io/docs/specification/2-0/api-definition/#tags-object
- */
-app.set('tag', 'Courses');
-
+// Set CORS headers
 app.use('/api/v1', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -37,22 +33,16 @@ app.use('/api/v1', (req, res, next) => {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
     }
-    next();
+    next(); // Call next middleware in chain
 });
 
-/**
- * Mounting login routes
- */
+// Mount login routes
 app.use('/api/login', loginRouter);
 
-/**
- * Mounting course routes
- */
+// Mount course routes
 app.use('/api/courses', courseRouter);
 
-/**
- * Mounting user routes
- */
+// Mount user routes
 app.use('/api/users', userRouter);
 
 // Define a route handler for the root URL
