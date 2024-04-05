@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String
-  email      String
-  age        Int
-  courses    Course[]
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String
+  age      Int
+  courses  Course? @relation(fields: [CourseId], references: [id])
+  CourseId Int     @unique
 }
 
 model Course {
@@ -26,8 +27,8 @@ model Course {
   title       String
   description String
   instructor  String
-  price       Float
-  rating      Float
+  price       String
+  rating      String
   createdAt   DateTime @default(now())
   users       User[]
 }

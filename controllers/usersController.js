@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import HttpStatus from 'http-status-codes';
 
 const prisma = new PrismaClient();
 
@@ -7,10 +8,10 @@ class UserController {
   async getAllUsers(req, res) {
     try {
       const users = await prisma.user.findMany();
-      res.status(200).json(users);
+      res.status(HttpStatus.OK).json(users);
     } catch (error) {
       console.error("Error getting users:", error);
-      res.status(500).json({ message: "Error getting users" });
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error getting users" });
     }
   }
 
@@ -22,44 +23,29 @@ class UserController {
         where: { id: userId },
       });
       if (!user) {
-        res.status(404).json({ message: "User not found" });
+        res.status(HttpStatus.NOT_FOUND).json({ message: "User not found" });
       } else {
-        res.status(200).json(user);
+        res.status(HttpStatus.OK).json(user);
       }
     } catch (error) {
       console.error("Error getting user:", error);
-      res.status(500).json({ message: "Error getting user" });
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error getting user" });
     }
   }
 
-// Create a new user
-async createUser(req, res) {
-  try {
-    // Extract the user data from the request body array
-    const userData = req.body[0]; // Assuming the user data is the first element of the array
-
-    // Destructure properties from the user data object
-    const { name, email, age } = userData;
-
-    // Log the received request body
-    console.log('Received request body:', userData);
-
-    // Log the extracted values
-    console.log('Extracted Values:', { name, email, age });
-
-    const newUser = await prisma.user.create({
-      data: {
-        name,
-        email,
-        age,
-      },
-    });
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Error creating user" });
+  // Create a new user
+  async createUser(req, res) {
+    try {
+      const userData = req.body;
+      const newUser = await prisma.user.create({
+        data: userData,
+      });
+      res.status(HttpStatus.CREATED).json(newUser);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error creating user" });
+    }
   }
-}
 
   // Update user by ID
   async updateUserById(req, res) {
@@ -74,10 +60,10 @@ async createUser(req, res) {
           age: parseInt(age),
         },
       });
-      res.status(200).json(updatedUser);
+      res.status(HttpStatus.OK).json(updatedUser);
     } catch (error) {
       console.error("Error updating user:", error);
-      res.status(500).json({ message: "Error updating user" });
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error updating user" });
     }
   }
 
@@ -88,10 +74,10 @@ async createUser(req, res) {
       await prisma.user.delete({
         where: { id: userId },
       });
-      res.status(204).json({ message: "User deleted successfully" });
+      res.status(HttpStatus.NO_CONTENT).json({ message: "User deleted successfully" });
     } catch (error) {
       console.error("Error deleting user:", error);
-      res.status(500).json({ message: "Error deleting user" });
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error deleting user" });
     }
   }
 }

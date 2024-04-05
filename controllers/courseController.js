@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import HttpStatus from 'http-status-codes';
 
 const prisma = new PrismaClient();
 
@@ -6,10 +7,10 @@ const prisma = new PrismaClient();
 export const getAllCourses = async (req, res) => {
   try {
     const courses = await prisma.course.findMany();
-    res.status(200).json(courses);
+    res.status(HttpStatus.OK).json(courses);
   } catch (error) {
     console.error("Error getting courses:", error);
-    res.status(500).json({ message: "Error getting courses" });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error getting courses" });
   }
 };
 
@@ -21,68 +22,44 @@ export const getCourseById = async (req, res) => {
       where: { id: parseInt(courseId) },
     });
     if (!course) {
-      res.status(404).json({ message: "Course not found" });
+      res.status(HttpStatus.NOT_FOUND).json({ message: "Course not found" });
     } else {
-      res.status(200).json(course);
+      res.status(HttpStatus.OK).json(course);
     }
   } catch (error) {
     console.error("Error getting course:", error);
-    res.status(500).json({ message: "Error getting course" });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error getting course" });
   }
 };
 
 // Create a new course
 export const createCourse = async (req, res) => {
     try {
-      // Extract the first object from the array
-      const courseData = req.body[0];
-
-      // Destructure properties from the extracted object
-      const { title, description, instructor, price, rating } = courseData;
-
-      // Log the received request body
-      console.log('Received request body:', courseData);
-
-      // Log the extracted values
-      console.log('Extracted values:', { title, description, instructor, price, rating });
-
+      const courseData = req.body;
       const newCourse = await prisma.course.create({
-        data: {
-          title,
-          description,
-          instructor,
-          price,
-          rating,
-          createdAt: new Date(),
-        },
+        data: courseData,
       });
   
-      res.status(201).json(newCourse);
+      res.status(HttpStatus.CREATED).json(newCourse);
     } catch (error) {
       console.error("Error creating course:", error);
-      res.status(500).json({ message: "Error creating course" });
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error creating course" });
     }
 };
   
 // Update course by ID
 export const updateCourseById = async (req, res) => {
   const courseId = req.params.courseId;
-  const { title, description, instructor, price, rating } = req.body;
+  const courseData = req.body;
   try {
     const updatedCourse = await prisma.course.update({
       where: { id: parseInt(courseId) },
-      data: {
-        title,
-        description,
-        instructor,
-        price,
-        rating,
-      },
+      data: courseData,
     });
-    res.status(200).json(updatedCourse);
+    res.status(HttpStatus.OK).json(updatedCourse);
   } catch (error) {
     console.error("Error updating course:", error);
-    res.status(500).json({ message: "Error updating course" });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error updating course" });
   }
 };
 
@@ -93,9 +70,9 @@ export const deleteCourseById = async (req, res) => {
     await prisma.course.delete({
       where: { id: parseInt(courseId) },
     });
-    res.status(204).json({ message: "Course deleted successfully" });
+    res.status(HttpStatus.NO_CONTENT).json({ message: "Course deleted successfully" });
   } catch (error) {
     console.error("Error deleting course:", error);
-    res.status(500).json({ message: "Error deleting course" });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error deleting course" });
   }
 };

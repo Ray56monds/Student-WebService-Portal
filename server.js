@@ -1,51 +1,46 @@
 import express from 'express';
 import morgan from 'morgan';
 import courseRouter from './routes/courseRoutes.js';
-import userRouter from './routes/userRoutes.js'; // Import user routes
-import loginRouter from './routes/loginRoutes.js'; // Import login routes
+import userRouter from './routes/userRoutes.js';
+import loginRouter from './routes/loginRoutes.js';
 import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
+import { generateToken, verifyTokenMiddleware } from './utils/jwt-auth.js';
+import HttpStatus from 'http-status-codes';
+import 'dotenv/config';
 
 const app = express();
 
-// Create a PostgreSQL connection pool
-const connectionString = `${process.env.DATABASE_URL}`;
-
-// Initialize Prisma client with PostgreSQL adapter
 const prisma = new PrismaClient();
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
-// Generate JWT token with 15-minute expiration
+app.use('/api/login', loginRouter);
+app.use('/api/courses', courseRouter);
+app.use('/api/users', userRouter);
+
 app.get('/get-token', (req, res) => {
-    const token = jwt.sign({ email: req.body.email }, 'secretkey', { expiresIn: '15m' });
-    res.status(200).json({ token });
+    const token = generateToken({ email: req.body.email });
+    res.status(HttpStatus.OK).json({ token });
 });
 
-// Set CORS headers
+// Use verifyTokenMiddleware as middleware for /verify-token route
+app.get('/verify-token', verifyTokenMiddleware, (req, res) => {
+    res.status(HttpStatus.OK).json({ message: 'Token is valid', decodedToken: req.decodedToken });
+});
+
 app.use('/api/v1', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
+        return res.status(HttpStatus.OK).json({});
     }
-    next(); // Call next middleware in chain
+    next();
 });
 
-// Mount login routes
-app.use('/api/login', loginRouter);
-
-// Mount course routes
-app.use('/api/courses', courseRouter);
-
-// Mount user routes
-app.use('/api/users', userRouter);
-
-// Define a route handler for the root URL
 app.get('/', (req, res) => {
     res.send('Welcome to the Student Web Portal');
 });
