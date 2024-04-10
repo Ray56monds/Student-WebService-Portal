@@ -13,11 +13,11 @@
     "web",
     "portal"
   ],
-  "author": "Your Name",
+  "author": "Raymond Magezi",
   "license": "ISC",
   "dependencies": {
     "@prisma/adapter-pg": "^5.11.0",
-    "@prisma/client": "^5.11.0",
+    "@prisma/client": "^5.12.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
@@ -27,15 +27,15 @@
     "joi": "^17.12.3",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "pg": "^8.11.3",
-    "prisma": "^5.11.0"
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "eslint": "^8.3.0",
-    "jsdoc": "^3.6.7",
+    "jsdoc": "^4.0.2",
     "mocha": "^9.0.0",
     "nodemon": "^3.1.0",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.0",
+    "prisma": "^5.12.1"
   }
 }

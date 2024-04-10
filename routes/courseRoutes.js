@@ -10,4 +10,10 @@ courseRouter.post('/', courseController.createCourse);
 courseRouter.patch('/:courseId', courseController.updateCourseById);
 courseRouter.delete('/:courseId', courseController.deleteCourseById);
 
+// Add error handling middleware
+courseRouter.use((err, req, res, next) => {
+  console.error("Error handling middleware:", err);
+  res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "An error occurred" });
+});
+
 export default courseRouter;

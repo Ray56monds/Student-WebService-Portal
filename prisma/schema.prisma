@@ -20,6 +20,7 @@ model User {
   age      Int
   courses  Course? @relation(fields: [CourseId], references: [id])
   CourseId Int     @unique
+  role     Role    @default(USER)
 }
 
 model Course {
@@ -31,4 +32,12 @@ model Course {
   rating      String
   createdAt   DateTime @default(now())
   users       User[]
+}
+
+enum Role {
+  USER
+  ADMIN
+  STUDENT
+  TEACHER
+  SUPER_ADMIN
 }

@@ -1,13 +1,19 @@
 import express from 'express';
+import { registerUser, loginUser, verifyUser } from './User.Controller';
 import UserController from '../controllers/usersController.js';
 
-const userRouter = express.Router();
+const router = express.Router();
+
+// Define routes for user authentication
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.get('/verify', verifyUser);
 
 // Define routes for CRUD operations on users
-userRouter.post('/', UserController.createUser);
-userRouter.get('/:userId', UserController.getUserById);
-userRouter.get('/', UserController.getAllUsers);
-userRouter.put('/:userId', UserController.updateUserById);
-userRouter.delete('/:userId', UserController.deleteUserById);
+router.post('/', UserController.createUser);
+router.get('/:userId', UserController.getUserById);
+router.get('/', UserController.getAllUsers);
+router.put('/:userId', UserController.updateUserById);
+router.delete('/:userId', UserController.deleteUserById);
 
-export default userRouter;
+export default router;

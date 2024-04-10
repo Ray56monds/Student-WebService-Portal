@@ -76,3 +76,25 @@ export const deleteCourseById = async (req, res) => {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error deleting course" });
   }
 };
+
+// Get courses by user role
+export const getCoursesByRole = async (req, res) => {
+  const role = req.query.role;
+  try {
+    const courses = await prisma.course.findMany({
+      where: {
+        users: {
+          some: {
+            role: {
+              equals: role,
+            },
+          },
+        },
+      },
+    });
+    res.status(HttpStatus.OK).json(courses);
+  } catch (error) {
+    console.error("Error getting courses by role:", error);
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: "Error getting courses by role" });
+  }
+};
